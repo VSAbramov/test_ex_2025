@@ -6,6 +6,7 @@ from sqlalchemy import (
     Numeric,
     String,
     Text,
+    UniqueConstraint,
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
@@ -98,3 +99,8 @@ class OrderItem(Base):
 
     order = relationship("Order", back_populates="order_items")
     item = relationship("Item", back_populates="order_items")
+
+    # Enforce the rule that pair (order_id, item_id) must be unique
+    __table_args__ = (
+        UniqueConstraint("order_id", "item_id", name="uix_order_item_unique"),
+    )
