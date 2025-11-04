@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "backend"
+version = "0.1"
+description = "test exercise for a job application"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "VSAbramov" }]
+dependencies = [
+    "fastapi>=0.119.0",
+    "pytest>=8.4.2",
+    "SQLAlchemy>=2.0.25",
+    "tabulate>=0.9.0",
+    "passlib[bcrypt]>=1.7.1",
+    "pytest-asyncio>=1.2.0",
+    "bcrypt<4.1",
+    "httpx>=0.28.1",
+    "aiosqlite>=0.21.0",
+    "uvicorn>=0.38.0",
+    "jose>=1.0.0",
+]
+
+[tool.pytest.ini_options]
+pythonpaht = [".", "src"]
