@@ -6,3 +6,4 @@ alembic/versions
 alembic/script.py.mako
 __pycache__
 ТЗ Backend .pdf
+backend.egg-info

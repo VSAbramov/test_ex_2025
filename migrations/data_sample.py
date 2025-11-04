@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from models import Base, Category, Client, Item, Order, OrderItem
+from backend.models import Base, Category, Client, Item, Order, OrderItem
 
 # Create database engine
 engine = create_engine("sqlite:///dev/data.db")
@@ -46,37 +46,37 @@ def init_sample_data():
     items = [
         Item(
             name="Gaming Laptop",
-            quantity = 15,
+            quantity=15,
             price=1299.99,
             category=laptops,
         ),
         Item(
             name="Business Laptop",
-            quantity= 45,
+            quantity=45,
             price=899.99,
             category=laptops,
         ),
         Item(
             name="Smartphone Pro",
-            quantity= 25,
+            quantity=25,
             price=799.99,
             category=smartphones,
         ),
         Item(
             name="Basic Smartphone",
-            quantity= 100,
+            quantity=100,
             price=299.99,
             category=smartphones,
         ),
         Item(
             name="Men's T-Shirt",
-            quantity= 120,
+            quantity=120,
             price=24.99,
             category=mens_clothing,
         ),
         Item(
             name="Women's Dress",
-            quantity= 200,
+            quantity=200,
             price=49.99,
             category=womens_clothing,
         ),
