@@ -34,6 +34,9 @@ class Category(Base):
     )
     items = relationship("Item", back_populates="category")
 
+    def __repr__(self):
+        return f"<Category: {self.name}>"
+
 
 class Item(Base):
     __tablename__ = "items"
@@ -52,6 +55,9 @@ class Item(Base):
 
     category = relationship("Category", back_populates="items")
     order_items = relationship("OrderItem", back_populates="item")
+
+    def __repr__(self):
+        return f"<Item: {self.name}>"
 
 
 class Client(Base):
