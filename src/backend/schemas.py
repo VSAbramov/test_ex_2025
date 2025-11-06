@@ -1,4 +1,4 @@
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class AddItemToOrderInputSchema(BaseModel):
@@ -8,7 +8,8 @@ class AddItemToOrderInputSchema(BaseModel):
 
 
 class AddItemToOrderOutputSchema(AddItemToOrderInputSchema):
-    price: int = Field(ge=0)
+    model_config = ConfigDict(from_attributes=True)
+    unit_price: float = Field(ge=0)
 
 
 class HTTPError(BaseModel):
