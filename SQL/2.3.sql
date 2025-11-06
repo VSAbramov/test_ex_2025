@@ -18,6 +18,9 @@ last_month_orders AS (
     FROM orders 
     WHERE created_at >= date('now', 'start of month', '-1 month')
       AND created_at < date('now', 'start of month')
+    --   for test better user current month
+    -- WHERE created_at >= date('now', 'start of month')
+    -- AND created_at < date('now', 'start of month', '+1 month')
 )
 SELECT 
     i.name AS item_name,
