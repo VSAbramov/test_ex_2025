@@ -14,6 +14,8 @@ def add_item(
     item = db.get(Item, item_id)
     if item is None:
         raise InvalidArgs(f"Item with id: {item_id} doesn't exist")
+    if quantity < 1:
+        raise InvalidArgs("Quantity should be more than 0")
     if item.quantity < quantity:
         raise InvalidArgs(f"Only {item.quantity} of {item.name} left")
     order = db.get(Order, order_id)
@@ -30,7 +32,7 @@ def add_item(
         order_item = OrderItem(
             order_id=order_id,
             item_id=item_id,
-            quantity=quantity,
+            quantity=0,
             unit_price=item.price,
         )
         db.add(order_item)

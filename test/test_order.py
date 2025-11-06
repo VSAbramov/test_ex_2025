@@ -22,17 +22,33 @@ def order_f(session) -> Order:
     return order
 
 
-def test_add_item_works(session, order_f):
+def test_add_item_create_works(session, order_f):
     # call function
     item_id = 1
-    new_order_item = add_item(session, order_f.id, item_id, 1)
+    quantity = 1
+    item = session.get(Item, item_id)
+    quantity_left_before = item.quantity
+    new_order_item = add_item(session, order_f.id, item_id, quantity)
 
     # assert record inside db
     order_item_query: OrderItem = select(OrderItem).where(
         (OrderItem.order_id == order_f.id) & (OrderItem.item_id == item_id)
     )
+
     db_order_item = session.scalars(order_item_query).first()
     assert db_order_item == new_order_item
+    item = session.get(Item, item_id)
+    quantity_left_after = item.quantity
+    assert quantity_left_before - quantity_left_after == quantity
+
+
+def test_add_item_increase_works(session, order_f):
+    item_id = 1
+    quantity = 1
+    order_item = add_item(session, order_f.id, item_id, quantity)
+    quant_before = order_item.quantity
+    order_item = add_item(session, order_f.id, item_id, quantity)
+    assert order_item.quantity - quant_before == quantity
 
 
 def test_add_item_invalid_args_fails(session, order_f):
@@ -53,3 +69,5 @@ def test_add_item_invalid_args_fails(session, order_f):
     invalid_quantity = item.quantity + 1
     with pytest.raises(InvalidArgs):
         add_item(session, order_f.id, item_id, invalid_quantity)
+    with pytest.raises(InvalidArgs):
+        add_item(session, order_f.id, item_id, -1)
