@@ -1,0 +1,9 @@
+*.pyc
+__pycache__/
+*.pdf
+.git
+.venv
+.vscode
+.pytest_cache
+migrations
+SQL
