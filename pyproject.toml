@@ -26,7 +26,7 @@ dependencies = [
 ]
 
 [tool.pytest.ini_options]
-pythonpaht = [".", "src"]
+pythonpath = [".", "src"]
 log_cli = true
 log_level = "DEBUG"
 log_cli_level = "DEBUG"
