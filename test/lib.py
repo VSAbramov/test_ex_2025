@@ -27,4 +27,4 @@ def get_head(session, model, limit=5):
     # Generate table string
     table_str = tabulate(table_data, headers=headers, tablefmt="grid")
 
-    return table_str
+    return "\n" + model.__tablename__ + "\n" + table_str

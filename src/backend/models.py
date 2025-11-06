@@ -75,6 +75,9 @@ class Client(Base):
 
     orders = relationship("Order", back_populates="client")
 
+    def __repr__(self):
+        return f"<Client: {self.name}>"
+
 
 class Order(Base):
     __tablename__ = "orders"
@@ -110,3 +113,6 @@ class OrderItem(Base):
     __table_args__ = (
         UniqueConstraint("order_id", "item_id", name="uix_order_item_unique"),
     )
+
+    def __repr__(self):
+        return f"<OrderItem: {self.id}>"

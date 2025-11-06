@@ -27,3 +27,9 @@ dependencies = [
 
 [tool.pytest.ini_options]
 pythonpaht = [".", "src"]
+log_cli = true
+log_level = "DEBUG"
+log_cli_level = "DEBUG"
+log_file = "dev/app.log"
+log_file_level = "DEBUG"
+log_file_mode = "w"
