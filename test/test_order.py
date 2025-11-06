@@ -3,9 +3,9 @@ import logging
 import conftest
 import pytest
 from lib import get_head
-from sqlalchemy import select
+from sqlalchemy import func, select
 
-from backend.crud import add_item
+from backend.crud import InvalidArgs, add_item
 from backend.models import Category, Item, Order, OrderItem
 
 
@@ -33,3 +33,23 @@ def test_add_item_works(session, order_f):
     )
     db_order_item = session.scalars(order_item_query).first()
     assert db_order_item == new_order_item
+
+
+def test_add_item_invalid_args_fails(session, order_f):
+    item_id = 1
+
+    # wrong order id
+    invalid_order_id = session.query(func.max(Order.id)).scalar() + 1
+    with pytest.raises(InvalidArgs):
+        add_item(session, invalid_order_id, item_id, 1)
+
+    # wrong item id
+    invalid_item_id = session.query(func.max(Item.id)).scalar() + 1
+    with pytest.raises(InvalidArgs):
+        add_item(session, order_f.id, invalid_item_id, 1)
+
+    # wrong quantity
+    item = session.get(Item, item_id)
+    invalid_quantity = item.quantity + 1
+    with pytest.raises(InvalidArgs):
+        add_item(session, order_f.id, item_id, invalid_quantity)

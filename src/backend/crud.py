@@ -3,18 +3,22 @@ from sqlalchemy.orm import Session
 
 from backend.models import Item, Order, OrderItem
 
-# TODO: add custom exception
+
+class InvalidArgs(Exception):
+    pass
 
 
 def add_item(
     db: Session, order_id: int, item_id: int, quantity: int
 ) -> OrderItem:
     item = db.get(Item, item_id)
+    if item is None:
+        raise InvalidArgs(f"Item with id: {item_id} doesn't exist")
     if item.quantity < quantity:
-        raise Exception(f"Item with id: {item_id} doesn't exist")
+        raise InvalidArgs(f"Only {item.quantity} of {item.name} left")
     order = db.get(Order, order_id)
     if order is None:
-        raise Exception(f"Order with id: {order_id} doesn't exist")
+        raise InvalidArgs(f"Order with id: {order_id} doesn't exist")
 
     order_item_query: OrderItem = select(OrderItem).where(
         (OrderItem.order_id == order_id) & (OrderItem.item_id == item_id)
