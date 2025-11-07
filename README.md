@@ -83,7 +83,7 @@ LIMIT 5;
 # 3. Написать  сервис  «Добавление  товара  в  заказ» 
 ## Запустить автотесты (используется in memory database):
 ```bash 
-docker compose run --rm tests 
+docker compose run --rm tests
 ```
 ## Инициализировать тестовую базу данных
 ```bash
@@ -97,5 +97,5 @@ docker compose run --rm init_db
 
 Эндпоинт для добавления товара: `http://localhost:8086/add-item`
 ```bash
-docker compose up
+docker compose up web
 ```
