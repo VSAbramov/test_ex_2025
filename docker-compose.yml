@@ -1,11 +1,32 @@
 version: '3'
 
 services:
-    web:
-      build:
-        dockerfile: ./Dockerfile
-      volumes:
-        - ./dev:/app/dev/:rw
-      command: uvicorn backend.main:app --host 0.0.0.0 --port 8086
-      ports:
-        - "8086:8086"
+  web:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./dev:/app/dev/:rw
+    command: uvicorn backend.main:app --host 0.0.0.0 --port 8086
+    ports:
+      - "8086:8086"
+  tests:
+    build:
+      dockerfile: ./Dockerfile
+    command: pytest test -v
+    environment:
+      - TESTING=true
+  init_db:
+    build:
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./dev:/app/dev/:rw
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cd migrations
+        alembic upgrade head
+        cd ..
+        python test/data_sample.py
+    environment:
+      - TESTING=true

@@ -23,3 +23,10 @@ alembic revision --autogenerate -m "init db"
 ```bash
 alembic upgrade head
 ```
+
+
+```bash
+docker compose up
+docker compose run --rm tests 
+docker compose run --rm init_db
+```
