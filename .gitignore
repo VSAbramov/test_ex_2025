@@ -1,7 +1,6 @@
 .python-version
 .venv
 .vscode
-dev
 alembic/versions
 alembic/script.py.mako
 __pycache__
