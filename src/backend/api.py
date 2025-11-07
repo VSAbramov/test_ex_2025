@@ -31,10 +31,9 @@ def add_item_to_order(
         )
     except InvalidArgs as e:
         raise HTTPException(status_code=422, detail=str(e))
-    res = AddItemToOrderOutputSchema(
+    return AddItemToOrderOutputSchema(
         order_id=order_item.order_id,
         item_id=order_item.item_id,
         quantity=order_item.quantity,
         unit_price=order_item.unit_price,
     )
-    return res
